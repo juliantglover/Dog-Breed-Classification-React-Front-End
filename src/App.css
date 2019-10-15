@@ -1,0 +1,33 @@
+h3 {
+    text-align: center;
+    margin-top: 30px;
+}
+
+hr {
+    margin-bottom: 50px;
+}
+
+.error{
+    color: red;
+    font-size: 0.8em;
+}
+
+.result{
+    font-size: 1.2em;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.dogBreed{
+    font-weight: bold;
+    color: green;
+}
+
+.inputWrapper {
+    margin: 50px 0 50px auto;
+}
+
+.loadingImage{
+    margin: 0 auto 10px auto;
+    display: block;
+}
