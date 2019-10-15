@@ -10,8 +10,9 @@ import dogBreeds from "./DogBreedMap";
 import loadingCircle from "./loadingCircle.gif";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
-registerPlugin(FilePondPluginImageExifOrientation,FilePondPluginImagePreview);
+registerPlugin(FilePondPluginImageExifOrientation,FilePondPluginImagePreview,FilePondPluginFileValidateType);
 
 unregister();
 class App extends React.Component{
@@ -82,16 +83,17 @@ class App extends React.Component{
                 </p>
                 <div className="inputWrapper">
                     <FilePond
+                        allowFileTypeValidation={true}
                         allowImageExifOrientation={true}
-                        acceptedFileTypes={['image/jpeg']}
+                        acceptedFileTypes={['image/jpeg','image/jpg']}
                         onupdatefiles={fileItems => {
                             if (fileItems.length > 0){
                                 this.setState({
                                     image: fileItems[0].file
                                 });
-                                this.classifyDogBreed();
                             }
                         }}
+                        onaddfile={() => this.classifyDogBreed()}
                         allowMultiple={false}
                         maxFiles={1}/>
                 </div>
