@@ -34,7 +34,7 @@ class App extends React.Component{
       return <p className="result">This looks like a <span className="dogBreed">{dogBreeds[dogBreedMapKey]}</span> !</p>
    }
    else{
-       return "The dog breed could not be determined."
+       return <p>The dog breed could not be determined.</p>
    }
   };
 
