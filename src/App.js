@@ -28,6 +28,20 @@ class App extends React.Component{
       }
   }
 
+    convertBlobToFile = (uploadedContent) => {
+        // In the case that a file from a remote URL is used, attempt to convert the received blob
+        // to a file
+        if (uploadedContent instanceof Blob){
+            // Assume that the uploaded content type will be in form 'file type/file extension"
+            const fileName = "uploadedContent." + uploadedContent.type.split('/')[1];
+            return new File([uploadedContent], fileName, {type: uploadedContent.type, lastModified: Date.now()});
+        }
+        else{
+            return uploadedContent;
+        }
+
+    };
+
   getDogBreedPrediction = () => {
    const dogBreedMapKey = this.state.prediction;
    if(dogBreeds.hasOwnProperty(dogBreedMapKey)){
@@ -58,7 +72,7 @@ class App extends React.Component{
               component.state
           ).then(function (result) {
               if(result.ok){
-                  console.log("Recieved prediction results");
+                  console.log("Received prediction results");
                   console.log(result.obj);
                   component.setState({
                       loading:false,
@@ -89,7 +103,7 @@ class App extends React.Component{
                         onupdatefiles={fileItems => {
                             if (fileItems.length > 0){
                                 this.setState({
-                                    image: fileItems[0].file
+                                    image: this.convertBlobToFile(fileItems[0].file)
                                 });
                             }
                         }}
@@ -99,7 +113,7 @@ class App extends React.Component{
                 </div>
                 {this.state.loading ? <img className="loadingImage" src={loadingCircle}/> : null}
                 {this.state.uploadError ? <p className="error">Image classification failed.
-                    Please try again with a valid image uploaded in 'jpg' format.</p> : null}
+                    Please try again with a valid image uploaded in 'jpg' or 'jpeg' format.</p> : null}
                 {this.state.prediction === null ? null : this.getDogBreedPrediction()}
                  <p>The list of dog breeds supported can be found
                      <a href="https://www.kaggle.com/c/dog-breed-identification/data"> here</a>.
