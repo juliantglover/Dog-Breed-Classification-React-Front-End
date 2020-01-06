@@ -103,7 +103,8 @@ class App extends React.Component{
                         onupdatefiles={fileItems => {
                             if (fileItems.length > 0){
                                 this.setState({
-                                    image: this.convertBlobToFile(fileItems[0].file)
+                                    image: this.convertBlobToFile(fileItems[0].file),
+                                    prediction:null,
                                 });
                             }
                         }}
